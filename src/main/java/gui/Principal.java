@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -34,23 +36,24 @@ public class Principal extends javax.swing.JFrame {
     JScrollBar verticalScrollBar;
     JScrollBar horizontalScrollBar;
     Mat mat = null;
-    
+
     class MiListener implements AdjustmentListener {
+
         @Override
         public void adjustmentValueChanged(AdjustmentEvent e) {
             setChannelValues();
         }
     }
-    
+
     /**
      * Creates new form Principal
      */
     public Principal() {
-        
+
         // OpenCV
         nu.pattern.OpenCV.loadShared();
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        
+
         initComponents();
         customInit();
         super.setLocationRelativeTo(null);
@@ -86,6 +89,8 @@ public class Principal extends javax.swing.JFrame {
         fieldBlueMinimum = new javax.swing.JTextField();
         fieldBlueMaximum = new javax.swing.JTextField();
         fieldBlueAverage = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,11 +126,11 @@ public class Principal extends javax.swing.JFrame {
         backgroundImageBean.setLayout(backgroundImageBeanLayout);
         backgroundImageBeanLayout.setHorizontalGroup(
             backgroundImageBeanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 557, Short.MAX_VALUE)
+            .addGap(0, 572, Short.MAX_VALUE)
         );
         backgroundImageBeanLayout.setVerticalGroup(
             backgroundImageBeanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 255, Short.MAX_VALUE)
         );
 
         scrollPanel.setViewportView(backgroundImageBean);
@@ -202,24 +207,43 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(labelMaximum)
                             .addComponent(labelAverage))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(channelPanelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelRed)
-                            .addComponent(fieldRedMinimum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldRedMaximum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldRedAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(channelPanelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelRed, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(channelPanelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(fieldRedMinimum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fieldRedMaximum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fieldRedAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(33, 33, 33))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, channelPanelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(fieldGreenMinimum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(labelGreen)
                         .addComponent(fieldGreenMaximum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(fieldGreenAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(channelPanelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fieldBlueMinimum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelBlue)
                     .addComponent(fieldBlueMaximum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fieldBlueAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel1.setText("Copyright: Alexander Álvarez Marques");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -229,11 +253,12 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
+                    .addComponent(scrollPanel)
                     .addComponent(selectFilePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(channelPanels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -244,7 +269,9 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(channelPanels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(channelPanels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -252,41 +279,43 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectFileButtonActionPerformed
-        
-        FileFilter imageFilter =
-                new FileNameExtensionFilter("Image files (BMP, JPG, JPEG, WBMP, PNG, GIF)",
-                ImageIO.getReaderFileSuffixes());
+
+        FileFilter imageFilter
+                = new FileNameExtensionFilter("Image files (BMP, JPG, JPEG, WBMP, PNG, GIF)",
+                        ImageIO.getReaderFileSuffixes());
         fileChooser.setFileFilter(imageFilter);
         fileChooser.setAcceptAllFileFilterUsed(false);
-        
+
         int choose = fileChooser.showOpenDialog(this);
-        
+
         if (choose == JFileChooser.APPROVE_OPTION) {
-            
+
             // Get image
             File selectedFile = fileChooser.getSelectedFile();
             String filePath = selectedFile.getAbsolutePath();
             selectFileTextField.setText(filePath);
-            
+
             // Load image and print
             mat = Imgcodecs.imread(selectedFile.getPath());
             BufferedImage img = (BufferedImage) HighGui.toBufferedImage(mat);
             backgroundImageBean.setImage(img);
             backgroundImageBean.paintImage();
-            
-            setChannelValues();
-            
-            // Config scroll bars
-            if (img.getWidth() > scrollPanel.getWidth())
-                scrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-            else 
-                scrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-            if (img.getHeight()> scrollPanel.getHeight())
+            setChannelValues();
+
+            // Config scroll bars
+            if (img.getWidth() > scrollPanel.getWidth()) {
+                scrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+            } else {
+                scrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            }
+
+            if (img.getHeight() > scrollPanel.getHeight()) {
                 scrollPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-            else 
+            } else {
                 scrollPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-            
+            }
+
         }
         if (choose == JFileChooser.CANCEL_OPTION) {
             System.out.println("Ahora me cago en tu abuela.");
@@ -294,39 +323,57 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_selectFileButtonActionPerformed
 
     private void setChannelValues() {
-        
+
         JViewport viewport = scrollPanel.getViewport();
-            
+
         Point pos = new Point(viewport.getViewPosition());
         Dimension size = new Dimension(scrollPanel.getWidth(), scrollPanel.getHeight());
-        
-        int [][] channels = backgroundImageBean.getChannels(mat, pos, size);
-        
+
+        int[][] channels = backgroundImageBean.getChannels(mat, pos, size);
+
         fieldRedMinimum.setText(String.valueOf(channels[0][0]));
         fieldRedMaximum.setText(String.valueOf(channels[0][1]));
         fieldRedAverage.setText(String.valueOf(channels[0][2]));
-        
+
         fieldGreenMinimum.setText(String.valueOf(channels[1][0]));
         fieldGreenMaximum.setText(String.valueOf(channels[1][1]));
         fieldGreenAverage.setText(String.valueOf(channels[1][2]));
-        
+
         fieldBlueMinimum.setText(String.valueOf(channels[2][0]));
         fieldBlueMaximum.setText(String.valueOf(channels[2][1]));
         fieldBlueAverage.setText(String.valueOf(channels[2][2]));
-        
+
     }
-    
+
     private void customInit() {
 
         selectFileTextField.setEditable(false);
         verticalScrollBar = scrollPanel.getVerticalScrollBar();
         horizontalScrollBar = scrollPanel.getHorizontalScrollBar();
-        
+
         verticalScrollBar.addAdjustmentListener(new MiListener());
         horizontalScrollBar.addAdjustmentListener(new MiListener());
 
+        fieldRedMinimum.setEditable(false);
+        fieldRedMaximum.setEditable(false);
+        fieldRedAverage.setEditable(false);
+
+        fieldGreenMinimum.setEditable(false);
+        fieldGreenMaximum.setEditable(false);
+        fieldGreenAverage.setEditable(false);
+
+        fieldBlueMinimum.setEditable(false);
+        fieldBlueMaximum.setEditable(false);
+        fieldBlueAverage.setEditable(false);
+
+        this.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                setChannelValues();
+            }
+        });
+
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -374,6 +421,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField fieldRedAverage;
     private javax.swing.JTextField fieldRedMaximum;
     private javax.swing.JTextField fieldRedMinimum;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelAverage;
     private javax.swing.JLabel labelBlue;
     private javax.swing.JLabel labelGreen;
